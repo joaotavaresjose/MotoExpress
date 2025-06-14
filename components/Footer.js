@@ -32,7 +32,7 @@ function Footer() {
                             <ul className="space-y-2 text-gray-400">
                                 <li className="flex items-center space-x-2">
                                     <i data-lucide="phone" className="w-4 h-4"></i>
-                                    <span>+244 900 000 000</span>
+                                    <span>+244 951 184 916</span>
                                 </li>
                                 <li className="flex items-center space-x-2">
                                     <i data-lucide="mail" className="w-4 h-4"></i>
@@ -55,7 +55,7 @@ function Footer() {
                     </div>
 
                     <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                        <p>&copy; 2024 MotoTáxi AO. Todos os direitos reservados.</p>
+                        <p>&copy; 2025 MotoTáxi AO. Todos os direitos reservados.</p>
                     </div>
                 </div>
             </footer>
