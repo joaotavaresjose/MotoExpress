@@ -1,67 +1,59 @@
 function Services() {
     try {
         React.useEffect(() => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            const elements = document.querySelectorAll('#services .fade-in');
-            elements.forEach(el => observer.observe(el));
-
-            return () => observer.disconnect();
+            lucide.createIcons();
         }, []);
 
         const services = [
             {
-                icon: 'fas fa-user',
+                icon: 'user',
                 title: 'Transporte de Passageiros',
-                description: 'Leve você ao seu destino com rapidez e segurança.',
-                color: 'blue'
+                description: 'Leve você rapidamente ao seu destino com segurança e conforto.'
             },
             {
-                icon: 'fas fa-box',
-                title: 'Delivery Express',
-                description: 'Entrega rápida de documentos, medicamentos e encomendas.',
-                color: 'green'
+                icon: 'map-pin',
+                title: 'Localização Automática',
+                description: 'Detectamos sua localização automaticamente para facilitar sua viagem.'
             },
             {
-                icon: 'fas fa-clock',
-                title: 'Serviço 24 Horas',
-                description: 'Disponível a qualquer hora do dia ou da noite.',
-                color: 'purple'
+                icon: 'clock',
+                title: 'Disponível 24/7',
+                description: 'Serviço disponível todos os dias, a qualquer hora que precisar.'
             },
             {
-                icon: 'fas fa-shield-alt',
-                title: 'Segurança Garantida',
-                description: 'Motoqueiros habilitados e motos com seguro.',
-                color: 'orange'
+                icon: 'shield-check',
+                title: 'Motoristas Verificados',
+                description: 'Todos os nossos motociclistas passam por rigorosa verificação.'
             }
         ];
 
         return (
-            <section id="services" data-name="services" data-file="components/Services.js" className="py-20 bg-gray-50">
-                <div className="container mx-auto px-6">
-                    <div className="text-center mb-16 fade-in">
-                        <h2 className="text-4xl font-bold text-gray-800 mb-4">Nossos Serviços</h2>
-                        <div className="w-20 h-1 bg-orange-600 mx-auto"></div>
+            <section data-name="services" data-file="components/Services.js" className="py-20 bg-gray-50">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl font-bold text-gray-800 mb-4">
+                            Nossos Serviços
+                        </h2>
+                        <p className="text-xl text-gray-600">
+                            Transporte rápido e seguro para todas as suas necessidades
+                        </p>
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {services.map((service, index) => (
-                            <div 
+                            <div
                                 key={index}
-                                className="fade-in bg-white p-6 rounded-lg shadow-lg text-center card-hover"
-                                style={{ transitionDelay: `${index * 0.1}s` }}
+                                className="service-card bg-white p-8 rounded-xl shadow-lg text-center"
                             >
-                                <div className={`w-16 h-16 mx-auto mb-4 bg-${service.color}-100 rounded-full flex items-center justify-center`}>
-                                    <i className={`${service.icon} text-3xl text-${service.color}-600`}></i>
+                                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <i data-lucide={service.icon} className="w-8 h-8 text-red-600"></i>
                                 </div>
-                                <h3 className="text-xl font-semibold text-gray-800 mb-3">{service.title}</h3>
-                                <p className="text-gray-600 leading-relaxed">{service.description}</p>
+                                <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                                    {service.title}
+                                </h3>
+                                <p className="text-gray-600">
+                                    {service.description}
+                                </p>
                             </div>
                         ))}
                     </div>

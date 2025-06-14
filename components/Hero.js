@@ -1,62 +1,33 @@
-function Hero() {
+function Hero({ setCurrentPage }) {
     try {
-        const handleWhatsAppClick = () => {
-            const message = "Olá! Gostaria de solicitar uma corrida de moto táxi.";
-            const phoneNumber = "244951184916";
-            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            window.open(whatsappURL, '_blank');
-        };
+        React.useEffect(() => {
+            lucide.createIcons();
+        }, []);
 
         return (
-            <section id="home" data-name="hero" data-file="components/Hero.js" className="min-h-screen flex items-center gradient-bg bg-pattern pt-16">
+            <section data-name="hero" data-file="components/Hero.js" className="hero-gradient text-white py-20">
                 <div className="container mx-auto px-4 text-center">
-                    <div className="max-w-4xl mx-auto hero-text">
-                        <div className="mb-8 flex justify-center">
-                            <div className="w-32 h-32 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                <i className="fas fa-motorcycle text-6xl text-red-700 motorcycle-icon"></i>
-                            </div>
-                        </div>
-
-                        <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight text-black">
-                            Transporte Rápido e Seguro
+                    <div className="fade-in">
+                        <h1 className="hero-title text-5xl md:text-6xl font-bold mb-6">
+                            Transporte Rápido<br />e Seguro em Angola
                         </h1>
-                        <h2 className="text-xl md:text-2xl mb-6 text-black font-medium">
-                            Chegue ao seu destino em minutos!
-                        </h2>
-                        <p className="text-lg mb-8 max-w-2xl mx-auto text-black leading-relaxed">
-                            Serviço de moto táxi 24 horas com motoqueiros experientes, 
-                            motos revisadas e preços justos. Sua segurança é nossa prioridade.
+                        <p className="hero-subtitle text-xl md:text-2xl mb-8 opacity-90">
+                            Chegue ao seu destino com rapidez e economia
                         </p>
-
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                            <button 
-                                onClick={handleWhatsAppClick}
-                                className="btn-whatsapp text-white px-8 py-4 rounded-full font-semibold text-lg flex items-center justify-center"
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button
+                                onClick={() => setCurrentPage('book')}
+                                className="btn-primary px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center justify-center space-x-2"
                             >
-                                <i className="fab fa-whatsapp mr-2 text-xl"></i>
-                                Chamar Agora
+                                <i data-lucide="smartphone" className="w-5 h-5"></i>
+                                <span>Solicitar Corrida</span>
                             </button>
-                            <button 
-                                onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}
-                                className="bg-white text-orange-600 px-8 py-4 rounded-full font-semibold text-lg hover:bg-orange-50 transition-colors"
+                            <button
+                                onClick={() => setCurrentPage('about')}
+                                className="bg-white text-red-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors"
                             >
-                                Ver Serviços
+                                Saiba Mais
                             </button>
-                        </div>
-
-                        <div className="grid grid-cols-3 gap-8 max-w-md mx-auto">
-                            <div className="text-center">
-                                <div className="text-2xl font-bold text-red-700">24h</div>
-                                <div className="text-sm text-red-70 opacity-80">Disponível</div>
-                            </div>
-                            <div className="text-center">
-                                <div className="text-2xl font-bold text-red-700">5min</div>
-                                <div className="text-sm text-red-70 opacity-80">Chegada</div>
-                            </div>
-                            <div className="text-center">
-                                <div className="text-2xl font-bold text-red-700">100%</div>
-                                <div className="text-sm text-red-70 opacity-80">Seguro</div>
-                            </div>
                         </div>
                     </div>
                 </div>

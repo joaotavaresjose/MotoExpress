@@ -1,78 +1,133 @@
-function Header() {
+function Header({ currentPage, setCurrentPage }) {
     try {
         const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+        const [isProfileOpen, setIsProfileOpen] = React.useState(false);
+        const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
-        const scrollToSection = (sectionId) => {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-                setIsMenuOpen(false);
-            }
+        React.useEffect(() => {
+            lucide.createIcons();
+            setIsAuthenticated(AuthUtils.isAuthenticated());
+        }, [currentPage]);
+
+        const menuItems = [
+            { id: 'home', label: 'Início' },
+            { id: 'book', label: 'Solicitar Corrida' },
+            { id: 'about', label: 'Sobre' },
+            ...(isAuthenticated ? [] : [{ id: 'login', label: 'Login' }])
+        ];
+
+        const handleLogout = () => {
+            AuthUtils.logout();
+            setIsAuthenticated(false);
+            setIsProfileOpen(false);
+            setCurrentPage('home');
+            alert('Logout realizado com sucesso!');
         };
 
         return (
-            <header data-name="header" data-file="components/Header.js" className="fixed top-0 left-0 right-0 w-full bg-white/95 backdrop-blur-md z-50 shadow-sm">
-                <nav className="container mx-auto px-4 py-3">
-                    <div className="flex justify-between items-center h-12">
-                        <div className="flex items-center space-x-2">
-                            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-yellow-600 rounded-lg flex items-center justify-center">
-                                <i className="fas fa-motorcycle text-white text-lg"></i>
-                            </div>
-                            <div>
-                                <div className="text-lg font-bold text-gray-800">MotoExpress</div>
-                                <div className="text-xs text-orange-600 font-medium">Transporte Rápido</div>
-                            </div>
-                        </div>
-                        
-                        <div className="hidden lg:flex items-center space-x-6">
-                            <button onClick={() => scrollToSection('home')} className="text-gray-700 hover:text-orange-600 transition-colors">
-                                Início
-                            </button>
-                            <button onClick={() => scrollToSection('services')} className="text-gray-700 hover:text-orange-600 transition-colors">
-                                Serviços
-                            </button>
-                            <button onClick={() => scrollToSection('pricing')} className="text-gray-700 hover:text-orange-600 transition-colors">
-                                Preços
-                            </button>
-                            <button onClick={() => scrollToSection('drivers')} className="text-gray-700 hover:text-orange-600 transition-colors">
-                                Motoqueiros
-                            </button>
-                            <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-orange-600 transition-colors">
-                                Contato
-                            </button>
-                            <Auth />
+            <header data-name="header" data-file="components/Header.js" className="bg-white shadow-lg sticky top-0 z-50">
+                <nav className="container mx-auto px-4 py-4">
+                    <div className="flex items-center justify-between">
+                        <button 
+                            onClick={() => setCurrentPage('home')}
+                            className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
+                        >
+                            <i data-lucide="zap" className="w-8 h-8 text-red-600"></i>
+                            <span className="text-2xl font-bold text-gray-800">MotoTáxi AO</span>
+                        </button>
+
+                        <div className="hidden md:flex items-center space-x-8">
+                            {menuItems.map(item => (
+                                <button
+                                    key={item.id}
+                                    onClick={() => setCurrentPage(item.id)}
+                                    className={`font-medium transition-colors ${
+                                        currentPage === item.id 
+                                            ? 'text-red-600' 
+                                            : 'text-gray-600 hover:text-red-600'
+                                    }`}
+                                >
+                                    {item.label}
+                                </button>
+                            ))}
                         </div>
 
-                        <div className="flex items-center space-x-4 lg:hidden">
-                            <Auth />
-                            <button 
+                        <div className="flex items-center space-x-4">
+                            {isAuthenticated && (
+                                <div className="relative">
+                                    <button
+                                        onClick={() => setIsProfileOpen(!isProfileOpen)}
+                                        className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors"
+                                    >
+                                        <i data-lucide="user" className="w-6 h-6"></i>
+                                    </button>
+                                    
+                                    {isProfileOpen && (
+                                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border z-10">
+                                            <button
+                                                onClick={() => {
+                                                    setCurrentPage('profile');
+                                                    setIsProfileOpen(false);
+                                                }}
+                                                className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center space-x-2"
+                                            >
+                                                <i data-lucide="user" className="w-4 h-4"></i>
+                                                <span>Meu Perfil</span>
+                                            </button>
+                                            <button
+                                                onClick={handleLogout}
+                                                className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center space-x-2 text-red-600"
+                                            >
+                                                <i data-lucide="log-out" className="w-4 h-4"></i>
+                                                <span>Sair</span>
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            <button
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                className="text-gray-700 w-10 h-10 flex items-center justify-center"
+                                className="md:hidden p-2"
                             >
-                                <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'} text-lg`}></i>
+                                <i data-lucide="menu" className="w-6 h-6"></i>
                             </button>
                         </div>
                     </div>
 
                     {isMenuOpen && (
-                        <div className="lg:hidden mt-2 pb-4 border-t border-gray-200">
-                            <div className="flex flex-col space-y-3 pt-4">
-                                <button onClick={() => scrollToSection('home')} className="text-gray-700 hover:text-orange-600 transition-colors text-left py-2">
-                                    Início
+                        <div className="md:hidden mt-4 pb-4">
+                            {menuItems.map(item => (
+                                <button
+                                    key={item.id}
+                                    onClick={() => {
+                                        setCurrentPage(item.id);
+                                        setIsMenuOpen(false);
+                                    }}
+                                    className="block w-full text-left py-2 text-gray-600 hover:text-red-600"
+                                >
+                                    {item.label}
                                 </button>
-                                <button onClick={() => scrollToSection('services')} className="text-gray-700 hover:text-orange-600 transition-colors text-left py-2">
-                                    Serviços
-                                </button>
-                                <button onClick={() => scrollToSection('pricing')} className="text-gray-700 hover:text-orange-600 transition-colors text-left py-2">
-                                    Preços
-                                </button>
-                                <button onClick={() => scrollToSection('drivers')} className="text-gray-700 hover:text-orange-600 transition-colors text-left py-2">
-                                    Motoqueiros
-                                </button>
-                                <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-orange-600 transition-colors text-left py-2">
-                                    Contato
-                                </button>
-                            </div>
+                            ))}
+                            {isAuthenticated && (
+                                <div className="border-t pt-2 mt-2">
+                                    <button
+                                        onClick={() => {
+                                            setCurrentPage('profile');
+                                            setIsMenuOpen(false);
+                                        }}
+                                        className="block w-full text-left py-2 text-gray-600 hover:text-red-600"
+                                    >
+                                        Meu Perfil
+                                    </button>
+                                    <button
+                                        onClick={handleLogout}
+                                        className="block w-full text-left py-2 text-red-600 hover:text-red-700"
+                                    >
+                                        Sair
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     )}
                 </nav>
