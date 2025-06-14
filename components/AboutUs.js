@@ -58,7 +58,7 @@ function AboutUs() {
 
                         <div className="relative">
                             <img 
-                                src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&h=500&fit=crop" 
+                                src="asset/about-us.jpeg" 
                                 alt="Equipe MotoTáxi Angola" 
                                 className="rounded-2xl shadow-2xl w-full h-auto"
                             />
