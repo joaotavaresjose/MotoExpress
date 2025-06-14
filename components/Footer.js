@@ -44,10 +44,10 @@ function Footer() {
                         <div>
                             <h4 className="text-lg font-semibold mb-4">Redes Sociais</h4>
                             <div className="flex space-x-4">
-                                <a href="#" className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors">
+                                <a href="https://www.facebook.com/share/18uWadGwix/?mibextid=qi2Omg" target="_blank"  className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors">
                                     <i data-lucide="facebook" className="w-5 h-5"></i>
                                 </a>
-                                <a href="#" className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors">
+                                <a href="https://www.instagram.com/engjoaotavaresjose?igsh=YzljYTk1ODg3Zg==" target="_blank" className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center hover:bg-red-700 transition-colors">
                                     <i data-lucide="instagram" className="w-5 h-5"></i>
                                 </a>
                             </div>
